@@ -1,0 +1,91 @@
+:root{
+--green-main:#52b788;
+--green-soft:#b7e4c7;
+--bg:#f8fff9;
+}
+
+body{
+margin:0;
+background:var(--bg);
+font-family:Poppins;
+}
+
+.app{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:25px;
+padding:25px;
+height:100vh;
+}
+
+.panel{
+background:white;
+border-radius:25px;
+padding:25px;
+}
+
+#status{
+background:var(--green-main);
+color:white;
+padding:6px 14px;
+border-radius:15px;
+display:inline-block;
+}
+
+#gameArea{
+margin-top:15px;
+width:100%;
+height:420px;
+border:3px solid var(--green-main);
+border-radius:20px;
+position:relative;
+overflow:hidden;
+}
+
+#frog{
+width:50px;
+position:absolute;
+left:200px;
+top:300px;
+transition:.4s ease;
+}
+
+textarea{
+width:100%;
+height:200px;
+border-radius:15px;
+border:2px solid var(--green-soft);
+padding:15px;
+font-family:JetBrains Mono;
+resize:none;
+}
+
+button{
+background:var(--green-main);
+border:none;
+padding:10px 20px;
+border-radius:20px;
+color:white;
+margin-top:10px;
+cursor:pointer;
+}
+
+.emoji-bar button{
+margin:6px;
+}
+
+.instruction{
+background:var(--green-soft);
+padding:14px;
+border-radius:14px;
+margin:10px 0;
+cursor:pointer;
+font-family:JetBrains Mono;
+}
+
+#tokens,#parseTree{
+background:#f1f1f1;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+}

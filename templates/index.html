@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Leafy Code Runner</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="panel">
+
+<h2>Leafy Code Runner</h2>
+
+<div id="status">Ready</div>
+
+<div id="gameArea">
+  <img id="frog" src="/static/img/frog.png">
+</div>
+
+<button onclick="runCode()">▶ Run Code</button>
+
+</div>
+
+<div class="panel">
+
+<textarea id="codeInput"></textarea>
+
+<button onclick="runCode()">Run Text Code</button>
+
+<h3>Code with Emojis</h3>
+
+<div class="emoji-bar">
+<button onclick="addCommand('moveRight(1);')">🌿➡️</button>
+<button onclick="addCommand('moveLeft(1);')">🍃⬅️</button>
+<button onclick="addCommand('jump();')">🐸⬆️</button>
+<button onclick="addCommand('wait(1);')">🕒</button>
+<button onclick="addCommand('glow();')">💡</button>
+<button onclick="addCommand('spin();')">🌀</button>
+<button onclick="addCommand('dash();')">💨</button>
+<button onclick="addCommand('float();')">🎈</button>
+</div>
+
+<button onclick="undoLastCommand()">↩ Undo</button>
+<button onclick="clearCode()">🧹 Clear</button>
+
+<h3>Quick Add Commands</h3>
+
+<div class="instruction" onclick="addCommand('moveRight(1);')">moveRight(n);</div>
+<div class="instruction" onclick="addCommand('moveLeft(1);')">moveLeft(n);</div>
+<div class="instruction" onclick="addCommand('jump();')">jump();</div>
+<div class="instruction" onclick="addCommand('wait(1);')">wait(n);</div>
+
+<h3>Compiler Output</h3>
+
+<pre id="tokens"></pre>
+<pre id="parseTree"></pre>
+
+</div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

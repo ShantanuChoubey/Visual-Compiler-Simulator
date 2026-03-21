@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Blockly Test</title>
+  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+</head>
+<body>
+  <h1>Blockly Test</h1>
+  <div id="blocklyDiv" style="height: 300px; width: 100%;"></div>
+  <button onclick="generateFromBlocks()">Run Block Code</button>
+  <pre id="output"></pre>
+
+  <script>
+    // Define custom blocks
+    Blockly.defineBlocksWithJsonArray([
+      {
+        type: "move_right",
+        message0: "moveRight %1 steps",
+        args0: [{ type: "field_number", name: "STEPS", value: 1 }],
+        previousStatement: null,
+        nextStatement: null,
+        colour: 120
+      },
+      {
+        type: "move_left",
+        message0: "moveLeft %1 steps",
+        args0: [{ type: "field_number", name: "STEPS", value: 1 }],
+        previousStatement: null,
+        nextStatement: null,
+        colour: 120
+      },
+      {
+        type: "jump",
+        message0: "jump()",
+        previousStatement: null,
+        nextStatement: null,
+        colour: 200
+      },
+      {
+        type: "wait",
+        message0: "wait %1 sec",
+        args0: [{ type: "field_number", name: "TIME", value: 1 }],
+        previousStatement: null,
+        nextStatement: null,
+        colour: 60
+      }
+    ]);
+
+    // Create workspace
+    const workspace = Blockly.inject('blocklyDiv', {
+      toolbox: {
+        kind: "flyoutToolbox",
+        contents: [
+          { kind: "block", type: "move_right" },
+          { kind: "block", type: "move_left" },
+          { kind: "block", type: "jump" },
+          { kind: "block", type: "wait" }
+        ]
+      }
+    });
+
+    // Generate JS code
+    function generateFromBlocks() {
+      const code = Blockly.JavaScript.workspaceToCode(workspace);
+      document.getElementById("output").textContent = code;
+    }
+  </script>
+</body>
+</html>
