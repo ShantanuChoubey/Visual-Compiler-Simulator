@@ -2,70 +2,80 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Leafy Code Runner</title>
-
+<title>Mini Visual Compiler Simulator</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-
 </head>
-
 <body>
 
 <div class="app">
 
-<div class="panel">
+  <!-- TOP-LEFT: game panel -->
+  <div class="panel game-panel">
+    <h2><b>Mini Visual Compiler Simulator</b></h2>
+    <div id="status">Ready</div>
+    <div id="gameArea">
+      <img id="frog" src="/static/img/frog.png">
+    </div>
+    <button onclick="runCode()">▶ Run Code</button>
+  </div>
 
-<h2>Leafy Code Runner</h2>
+  <!-- TOP-RIGHT: editor panel -->
+  <div class="panel right-panel">
+    <textarea id="codeInput" placeholder="Write your code here..."></textarea>
+    <button onclick="runCode()">Run Text Code</button>
 
-<div id="status">Ready</div>
+    <h3>Code with Emojis</h3>
+    <div class="emoji-bar">
+      <button onclick="addCommand('moveRight(1);')">🌿➡️</button>
+      <button onclick="addCommand('moveLeft(1);')">🍃⬅️</button>
+      <button onclick="addCommand('jump();')">🐸⬆️</button>
+      <button onclick="addCommand('wait(1);')">🕒</button>
+      <button onclick="addCommand('glow();')">💡</button>
+      <button onclick="addCommand('spin();')">🌀</button>
+      <button onclick="addCommand('dash();')">💨</button>
+      <button onclick="addCommand('float();')">🎈</button>
+    </div>
 
-<div id="gameArea">
-  <img id="frog" src="/static/img/frog.png">
-</div>
+    <button onclick="undoLastCommand()">↩ Undo</button>
+    <button onclick="clearCode()">🧹 Clear</button>
 
-<button onclick="runCode()">▶ Run Code</button>
+    <h3>Compiler Output</h3>
+    <pre id="tokens"></pre>
+    <pre id="parseTree"></pre>
+  </div>
 
-</div>
+  <!-- BOTTOM: full-width compiler phases panel -->
+  <div class="panel phases-full-panel">
 
-<div class="panel">
+    <div class="phases-header" onclick="togglePhases()">
+      <span>🔬 Compiler Phases</span>
+      <span id="phases-arrow">▼</span>
+    </div>
 
-<textarea id="codeInput"></textarea>
+    <div id="phases-panel" class="phases-panel hidden">
 
-<button onclick="runCode()">Run Text Code</button>
+      <div class="phase-tabs">
+        <button class="phase-tab active" onclick="showPhase(0)">1. Lexer</button>
+        <button class="phase-tab" onclick="showPhase(1)">2. Parser</button>
+        <button class="phase-tab" onclick="showPhase(2)">3. Semantic</button>
+        <button class="phase-tab" onclick="showPhase(3)">4. IR</button>
+        <button class="phase-tab" onclick="showPhase(4)">5. Optimise</button>
+        <button class="phase-tab" onclick="showPhase(5)">6. Codegen</button>
+      </div>
 
-<h3>Code with Emojis</h3>
+      <div id="phase-desc" class="phase-desc"></div>
 
-<div class="emoji-bar">
-<button onclick="addCommand('moveRight(1);')">🌿➡️</button>
-<button onclick="addCommand('moveLeft(1);')">🍃⬅️</button>
-<button onclick="addCommand('jump();')">🐸⬆️</button>
-<button onclick="addCommand('wait(1);')">🕒</button>
-<button onclick="addCommand('glow();')">💡</button>
-<button onclick="addCommand('spin();')">🌀</button>
-<button onclick="addCommand('dash();')">💨</button>
-<button onclick="addCommand('float();')">🎈</button>
-</div>
+      <div id="phase-content" class="phase-content">
+        <p class="phase-hint">Run your code to see the compiler phases.</p>
+      </div>
 
-<button onclick="undoLastCommand()">↩ Undo</button>
-<button onclick="clearCode()">🧹 Clear</button>
+    </div>
 
-<h3>Quick Add Commands</h3>
-
-<div class="instruction" onclick="addCommand('moveRight(1);')">moveRight(n);</div>
-<div class="instruction" onclick="addCommand('moveLeft(1);')">moveLeft(n);</div>
-<div class="instruction" onclick="addCommand('jump();')">jump();</div>
-<div class="instruction" onclick="addCommand('wait(1);')">wait(n);</div>
-
-<h3>Compiler Output</h3>
-
-<pre id="tokens"></pre>
-<pre id="parseTree"></pre>
-
-</div>
+  </div>
 
 </div>
 
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
 </body>
 </html>

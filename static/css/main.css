@@ -13,15 +13,33 @@ font-family:Poppins;
 .app{
 display:grid;
 grid-template-columns:2fr 1fr;
+grid-template-rows:auto auto;
 gap:25px;
 padding:25px;
-height:100vh;
+min-height:100vh;
 }
 
 .panel{
 background:white;
 border-radius:25px;
 padding:25px;
+}
+
+.game-panel{
+grid-column:1;
+grid-row:1;
+}
+
+.right-panel{
+grid-column:2;
+grid-row:1;
+overflow-y:auto;
+max-height:90vh;
+}
+
+.phases-full-panel{
+grid-column:1 / -1;
+grid-row:2;
 }
 
 #status{
@@ -89,3 +107,163 @@ padding:10px;
 border-radius:10px;
 margin-top:10px;
 }
+
+/* ── compiler phases toggle header ──────────────────────────────────────── */
+.phases-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--green-main);
+  color:white;
+  padding:10px 16px;
+  border-radius:14px;
+  margin-top:18px;
+  cursor:pointer;
+  font-weight:700;
+  user-select:none;
+}
+.phases-header:hover{ filter:brightness(1.08); }
+
+/* ── phases panel container ──────────────────────────────────────────────── */
+.phases-panel{
+  border:2px solid var(--green-soft);
+  border-radius:16px;
+  margin-top:8px;
+  overflow:hidden;
+}
+.phases-panel.hidden{ display:none; }
+
+/* ── phase tabs ──────────────────────────────────────────────────────────── */
+.phase-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  padding:10px;
+  background:#f0faf4;
+  border-bottom:1px solid var(--green-soft);
+}
+.phase-tab{
+  background:white;
+  border:2px solid var(--green-soft);
+  color:#333;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:.75rem;
+  cursor:pointer;
+  margin:0;
+}
+.phase-tab.active{
+  background:var(--green-main);
+  border-color:var(--green-main);
+  color:white;
+}
+
+/* ── phase description ───────────────────────────────────────────────────── */
+.phase-desc{
+  background:#f8fff9;
+  padding:10px 14px;
+  font-size:.82rem;
+  color:#444;
+  border-bottom:1px solid var(--green-soft);
+  line-height:1.5;
+}
+
+/* ── phase content area ──────────────────────────────────────────────────── */
+.phase-content{
+  padding:12px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.78rem;
+  max-height:420px;
+  overflow-y:auto;
+}
+.phase-hint{ color:#aaa; font-style:italic; }
+
+/* Phase 1 – Lexer */
+.phase-line{ margin-bottom:10px; }
+.phase-src{ display:block; color:#888; margin-bottom:4px; }
+.token-row{ display:flex; flex-wrap:wrap; gap:5px; }
+.token{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  background:#e8f5e9;
+  border:1px solid #a5d6a7;
+  border-radius:8px;
+  padding:3px 7px;
+  font-size:.75rem;
+}
+.token small{ font-size:.6rem; color:#777; margin-top:2px; }
+.token-keyword    { background:#c8e6c9; border-color:#66bb6a; }
+.token-number     { background:#fff9c4; border-color:#f9a825; }
+.token-punctuation{ background:#f3e5f5; border-color:#ce93d8; }
+.token-identifier { background:#e3f2fd; border-color:#90caf9; }
+
+/* Phase 2 – Parser */
+.parse-node{
+  padding:8px 12px;
+  border-radius:10px;
+  margin-bottom:6px;
+  border-left:4px solid transparent;
+}
+.node-ok { background:#e8f5e9; border-color:#52b788; }
+.node-err{ background:#ffebee; border-color:#ef5350; }
+.node-stmt  { display:block; font-weight:700; }
+.node-struct{ display:block; color:#555; font-size:.75rem; margin-top:3px; }
+
+/* Phase 3 – Semantic */
+.sem-row{
+  display:flex;
+  flex-direction:column;
+  padding:7px 10px;
+  border-radius:10px;
+  margin-bottom:5px;
+}
+.sem-ok { background:#e8f5e9; }
+.sem-err{ background:#ffebee; }
+.sem-row code{ font-weight:700; }
+.sem-row span{ font-size:.75rem; color:#555; margin-top:2px; }
+
+/* Phase 4 – IR */
+.ir-block{
+  background:#1e1e2e;
+  color:#cdd6f4;
+  padding:12px;
+  border-radius:10px;
+  margin:0;
+  line-height:1.7;
+}
+
+/* Phase 5 – Optimise */
+.opt-compare{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.opt-compare pre{
+  background:#1e1e2e;
+  color:#cdd6f4;
+  padding:10px;
+  border-radius:10px;
+  margin:4px 0 0;
+  line-height:1.7;
+}
+.opt-compare mark{
+  background:#a6e3a1;
+  color:#1e1e2e;
+  border-radius:3px;
+  padding:0 2px;
+}
+
+/* Phase 6 – Codegen */
+.cg-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:6px 8px;
+  border-radius:8px;
+  margin-bottom:4px;
+  background:#f8fff9;
+  border:1px solid var(--green-soft);
+}
+.cg-asm { color:#1a6b3c; font-weight:700; flex:0 0 auto; }
+.cg-note{ color:#666; font-size:.75rem; }
