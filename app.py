@@ -280,3 +280,7 @@ def compile_phases():
         "phase6_codegen": codegen,
         "errors": errors
     })
+
+    # This allows the app to run locally
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
