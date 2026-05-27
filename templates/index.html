@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Mini Visual Compiler Simulator</title>
+<title>C Visual Compiler Simulator</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
@@ -10,51 +10,47 @@
 
 <div class="app">
 
-  <!-- TOP-LEFT: game panel -->
+  <!-- TOP-LEFT: output / trace panel -->
   <div class="panel game-panel">
-    <h2><b>Mini Visual Compiler Simulator</b></h2>
+    <h2><b>C Visual Compiler Simulator</b></h2>
     <div id="status">Ready</div>
+
     <div id="gameArea">
-      <img id="frog" src="/static/img/frog.png">
+      <div id="outputBox">
+        <div class="out-label">Program Output</div>
+        <pre id="programOutput">Run your C code to see output here.</pre>
+      </div>
+      <div id="traceBox">
+        <div class="out-label">Execution Trace</div>
+        <div id="traceList"></div>
+      </div>
     </div>
+
     <button onclick="runCode()">▶ Run Code</button>
   </div>
 
   <!-- TOP-RIGHT: editor panel -->
   <div class="panel right-panel">
-    <textarea id="codeInput" placeholder="Write your code here..."></textarea>
-    <button onclick="runCode()">Run Text Code</button>
+    <h3 style="margin-top:0">C Code Editor</h3>
+    <textarea id="codeInput" placeholder="Write your C code here..."></textarea>
 
-    <h3>Code with Emojis</h3>
-    <div class="emoji-bar">
-      <button onclick="addCommand('moveRight(1);')">🌿➡️</button>
-      <button onclick="addCommand('moveLeft(1);')">🍃⬅️</button>
-      <button onclick="addCommand('jump();')">🐸⬆️</button>
-      <button onclick="addCommand('wait(1);')">🕒</button>
-      <button onclick="addCommand('glow();')">💡</button>
-      <button onclick="addCommand('spin();')">🌀</button>
-      <button onclick="addCommand('dash();')">💨</button>
-      <button onclick="addCommand('float();')">🎈</button>
+    <div class="btn-row">
+      <button onclick="runCode()">▶ Run</button>
+      <button onclick="clearCode()">🧹 Clear</button>
+      <button onclick="loadExample()">📄 Example</button>
     </div>
 
-    <button onclick="undoLastCommand()">↩ Undo</button>
-    <button onclick="clearCode()">🧹 Clear</button>
 
-    <h3>Compiler Output</h3>
-    <pre id="tokens"></pre>
-    <pre id="parseTree"></pre>
   </div>
 
   <!-- BOTTOM: full-width compiler phases panel -->
   <div class="panel phases-full-panel">
-
     <div class="phases-header" onclick="togglePhases()">
       <span>🔬 Compiler Phases</span>
       <span id="phases-arrow">▼</span>
     </div>
 
     <div id="phases-panel" class="phases-panel hidden">
-
       <div class="phase-tabs">
         <button class="phase-tab active" onclick="showPhase(0)">1. Lexer</button>
         <button class="phase-tab" onclick="showPhase(1)">2. Parser</button>
@@ -63,15 +59,11 @@
         <button class="phase-tab" onclick="showPhase(4)">5. Optimise</button>
         <button class="phase-tab" onclick="showPhase(5)">6. Codegen</button>
       </div>
-
       <div id="phase-desc" class="phase-desc"></div>
-
       <div id="phase-content" class="phase-content">
-        <p class="phase-hint">Run your code to see the compiler phases.</p>
+        <p class="phase-hint">Run your C code to see the compiler phases.</p>
       </div>
-
     </div>
-
   </div>
 
 </div>
